@@ -1,11 +1,6 @@
 import React from 'react';
 
-export const BoilingVerdict = (props: any) => {
-    if (props >= 100) {
-        return <p> Woda będzie się gotować </p>
-    }
-    else {
-        return <p> Woda nie będzie się gotować </p>
-    }
+export const BoilingVerdict: any = (props: any) => {
+    return <h1>{props.value? 'Woda będzie się gotować' : 'Woda nie będzie się gotować'}</h1>
 };
 

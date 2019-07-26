@@ -1,33 +1,9 @@
-import React from 'react'
-import { BoilingVerdict } from "./BoilingVerdict";
+import React, {Component} from 'react';
+import Calculator from './Calculator'
 
-interface MyState {
-    temperature: any
-}
-
-interface MyProps {
-
-}
-
-class App extends React.Component<MyProps, MyState>{
-
-    constructor(props: any){
-        super(props);
-        this.state = {
-            temperature: null
-        };
-        // this.handleChange = this.handleChange.bind(this);
-    }
-
+class App extends Component{
     render(): any {
-        const temperature = this.state.temperature;
-        const numberTemperature = parseFloat(temperature);
-        return (
-            <fieldset>
-                <legend> Podaj temperature w celcjuszach </legend>
-                <BoilingVerdict value={numberTemperature}/>;
-            </fieldset>
-        );
+        return <Calculator />;
     }
 }
 
