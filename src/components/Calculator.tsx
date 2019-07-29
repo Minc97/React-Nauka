@@ -8,7 +8,6 @@ interface MyState {
     temperatureFanhrenheit: string
     scale: string
 }
-
 interface MyProps {}
 
 class Calculator extends React.Component<MyProps, MyState> {
@@ -19,38 +18,31 @@ class Calculator extends React.Component<MyProps, MyState> {
             temperatureFanhrenheit: ' ',
             scale: ' '
         };
-        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(e: any) {
-        this.setState({
-            temperatureCelcius: e.target.value
-        })
-    }
-
-    convertTemperature = (temperature: any, scale: string) => {
+    convertTemperature = (temperature: string, scale: string) => {
         const valueToNumber: number = parseInt(temperature);
         if (scale === 'c') {
-            let convertedTemperature: any = 5 / 9 * (valueToNumber - 32);
-            return convertedTemperature.toString();
+            let convertedTemperature: any = 5/9 * (valueToNumber - 32);
+            return convertedTemperature.toString() === 'NaN'? ' ': convertedTemperature.toString();
 
         } else {
             let convertedTemperature: any = 9/5 * valueToNumber + 32;
-            return convertedTemperature.toString();
+            return convertedTemperature.toString() === 'NaN'? ' ': convertedTemperature.toString();
         }
     };
 
-     handleCelsiusChange = (temperature: any, scale: string) => {
+     handleCelsiusChange = (temperature: string) => {
         this.setState({
             temperatureCelcius: temperature,
-            temperatureFanhrenheit: this.convertTemperature(temperature, scale),
+            temperatureFanhrenheit: this.convertTemperature(temperature, 'f'),
             scale: 'c'
         })
     };
 
-    handleFanhrenheitChange = (temperature: any, scale: string) => {
+    handleFanhrenheitChange = (temperature: string) => {
         this.setState({
-            temperatureCelcius: this.convertTemperature(temperature, scale),
+            temperatureCelcius: this.convertTemperature(temperature, 'c'),
             temperatureFanhrenheit: temperature,
             scale: 'f'
         })
@@ -73,8 +65,6 @@ class Calculator extends React.Component<MyProps, MyState> {
             </div>
         );
     }
-
-
 }
 
 export default Calculator;
