@@ -2,37 +2,41 @@ import React from 'react';
 import {BoilingVerdict} from "./BoilingVerdict";
 import TemperatureCelciusInput from "./TemperatureCelciusInput";
 import TemperatureFanhrenheitInput from "./TemperatureFanhrenheitInput";
+import Grid from '@material-ui/core/Grid';
+
 
 interface MyState {
     temperatureCelcius: string
     temperatureFanhrenheit: string
     scale: string
 }
-interface MyProps {}
+
+interface MyProps {
+}
 
 class Calculator extends React.Component<MyProps, MyState> {
-    constructor(props: any){
+    constructor(props: any) {
         super(props);
         this.state = {
-            temperatureCelcius: ' ',
-            temperatureFanhrenheit: ' ',
+            temperatureCelcius: '',
+            temperatureFanhrenheit: '',
             scale: ' '
         };
     }
 
     convertTemperature = (temperature: string, scale: string) => {
-        const valueToNumber: number = parseInt(temperature);
+        let valueToNumber: number = parseInt(temperature);
         if (scale === 'c') {
-            let convertedTemperature: any = 5/9 * (valueToNumber - 32);
-            return convertedTemperature.toString() === 'NaN'? ' ': convertedTemperature.toString();
+            let convertedTemperature: number = Math.round(5 / 9 * (valueToNumber - 32));
+            return convertedTemperature.toString() === 'NaN' ? '' : convertedTemperature.toString();
 
         } else {
-            let convertedTemperature: any = 9/5 * valueToNumber + 32;
-            return convertedTemperature.toString() === 'NaN'? ' ': convertedTemperature.toString();
+            let convertedTemperature: number = Math.round(9 / 5 * valueToNumber + 32);
+            return convertedTemperature.toString() === 'NaN' ? '' : convertedTemperature.toString();
         }
     };
 
-     handleCelsiusChange = (temperature: string) => {
+    handleCelsiusChange = (temperature: string) => {
         this.setState({
             temperatureCelcius: temperature,
             temperatureFanhrenheit: this.convertTemperature(temperature, 'f'),
@@ -48,20 +52,30 @@ class Calculator extends React.Component<MyProps, MyState> {
         })
     };
 
-    render(): any  {
-        const temperatureCelsius: string = this.state.temperatureCelcius;
-        const temperatureFanhrenheit: string = this.state.temperatureFanhrenheit;
+    render(): any {
+        const {temperatureCelcius} = this.state;
+        const {temperatureFanhrenheit} = this.state;
         return (
             <div>
-                <TemperatureCelciusInput
-                    temperature={temperatureCelsius}
-                    onTemperatureChange={this.handleCelsiusChange}
-                />
-                <TemperatureFanhrenheitInput
-                    temperature={temperatureFanhrenheit}
-                    onTemperatureChange={this.handleFanhrenheitChange}
-                />
-                <BoilingVerdict value={temperatureCelsius}/>
+                <Grid
+                    container spacing={3}
+                    direction="row"
+                    justify="space-evenly"
+                    alignItems="center"
+                >
+                    <TemperatureCelciusInput
+                        temperature={temperatureCelcius}
+                        onTemperatureChange={this.handleCelsiusChange}
+                    />
+
+
+                    <TemperatureFanhrenheitInput
+                        temperature={temperatureFanhrenheit}
+                        onTemperatureChange={this.handleFanhrenheitChange}
+                    />
+
+                </Grid>
+                <BoilingVerdict value={temperatureCelcius}/>
             </div>
         );
     }

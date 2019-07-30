@@ -1,4 +1,5 @@
 import React from 'react';
+import {TextField} from "@material-ui/core";
 
 interface MyState {}
 interface MyProps {
@@ -18,13 +19,16 @@ class TemperatureFanhrenheitInput extends React.Component<MyProps, MyState>{
 
     render(): any {
         return (
-            <fieldset>
-                <legend> Podaj temperature w Fahrenheitach </legend>
-                <input
+            <form noValidate autoComplete="off">
+                <TextField
+                    id="outlined-name"
+                    label="Fahrenheit"
+                    margin="none"
+                    variant="outlined"
                     value={this.props.temperature}
                     onChange={this.handleChange}
                 />
-            </fieldset>
+            </form>
         );
     }
 }
